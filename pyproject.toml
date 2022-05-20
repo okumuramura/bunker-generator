@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "bunker-discord"
+version = "0.1.0"
+description = ""
+authors = ["okumuramura <bugagaga88@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+aiofile = "^3.7.4"
+typer = "^0.4.1"
+tqdm = "^4.64.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.0"
+pytest-cov = "^3.0.0"
+autoflake = "^1.4"
+isort = "^5.10.0"
+black = "^22.1"
+unify = "^0.5"
+flake8 = "^4.0"
+pylint = "^2.12.1"
+mypy = "^0.940"
+pytest-mock = "^3.7.0"
+safety = "^1.10.3"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
