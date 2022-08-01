@@ -1,7 +1,23 @@
 {
   "options": {
     "min_players": 2,
-    "max_players": 16
+    "max_players": 16,
+    "layout": {
+        "player": {
+          "professions": 1,
+          "bio": 1,
+          "goods": 2,
+          "health": 1,
+          "hobby": 1,
+          "facts": 1,
+          "specials": 1
+        },
+        "board": {
+          "catastrophes": 1,
+          "bunkers": 1,
+          "threats": 2
+        }
+    }
   },
   "professions": [
     "Вирусолог",
