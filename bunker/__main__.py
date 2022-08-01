@@ -1,15 +1,16 @@
 from pathlib import Path
 from typing import Dict, Any, Optional
 import json
+import pprint
 
 from typer import Typer, Option
 
-from bunker import logger
+from bunker import logger, generator
 
 typer = Typer()
 
 
-@typer.command()
+@typer.command(help='Create bunker game with selected options')
 def create(
     players: int = Option(
         ...,
@@ -45,16 +46,31 @@ def create(
         min_players: int = deck_options.get('min_players', 0)
         max_players: int = deck_options.get('max_players', 100)
         if not min_players <= players <= max_players:
-            logger.error(
-                'Invalid players count: %d. Required: %d<=players<=%d',
+            logger.warning(
+                'Mismatch in the number of players (%d). Expected >= %d and <= %d.',
                 players,
                 min_players,
                 max_players
             )
 
+    pprint.pprint(generator.generate_players(players, deck_obj))
+    pprint.pprint(generator.generate_board(deck_obj))
 
-@typer.command()
-def generate():
+
+@typer.command(help='Generate separate fields or player\'s profiles')
+def generate(
+    professions: int = Option(0),
+    bio: int = Option(0),
+    goods: int = Option(0),
+    health: int = Option(0),
+    hobby: int = Option(0),
+    facts: int = Option(0),
+    catastrophes: int = Option(0),
+    bunkers: int = Option(0),
+    threats: int = Option(0),
+    specials: int = Option(0),
+    profiles: int = Option(0)
+):
     pass
 
 
