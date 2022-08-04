@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бункер Профиль</title>
+</head>
+<body>
+    <style>
+        .border {
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid black;
+            border-radius: 5px;
+            width: 40%;
+            text-align: left;
+        }
+
+        .border td:first-child {
+            width: 30%;
+            text-align: center;
+        }
+
+        .border th {
+            text-align: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    </style>
+    <div class="border">
+        <table>
+            <tr>
+                <th colspan="2">Профиль игрока</th>
+            </tr>
+            {% for field, value in profile.items() %}
+            <tr>
+                <td>{{ field }}</td>
+                <td>
+                    {% for item in value %}
+                        {{ item }} 
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
