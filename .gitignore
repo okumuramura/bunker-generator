@@ -1,5 +1,6 @@
 # Local data
 poetry.lock
+bunker/games/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

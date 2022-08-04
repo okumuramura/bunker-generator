@@ -1,5 +1,4 @@
 import json
-import pprint
 from pathlib import Path
 from typing import Any, Dict, Optional
 
@@ -64,16 +63,18 @@ def create(
                 logger.warning(
                     'Mismatch language ("%s" != "%s")', language, option_language
                 )
+        elif language is None and option_language is None:
+            language = 'en'
+            logger.warning('No language selectet. Using \"en\"')
+        elif language is None:
+            language = option_language
 
-    pprint.pprint(generator.generate_players(players, deck_obj))
-    pprint.pprint(generator.generate_board(deck_obj))
-
-    # profile = generator.generate_players(players=players, deck=deck_obj)[0]
-    # pprint.pprint(profile)
-    # template = templates.get_template('profile.html')
-
-    # with open('player.html', 'w', encoding='utf-8') as file:
-    #     file.write(template.render(profile=profile))
+    generator.generate_game(
+        players=players,
+        deck=deck_obj,
+        output=output_dir,
+        format=format
+    )
 
 
 @typer.command(help="Generate separate fields or player's profiles")
