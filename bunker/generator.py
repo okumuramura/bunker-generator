@@ -32,8 +32,8 @@ def generate_players(players: int, deck: Dict[str, Any]) -> List[Dict[str, str]]
     profiles = [{} for _ in range(players)]
 
     for field, num in layout["player"].items():
-        data = random.sample(deck.get(field)['items'], players * num)
-        field_name = deck.get(field).get('label', field)
+        data = random.sample(deck.get(field)["items"], players * num)
+        field_name = deck.get(field).get("label", field)
         for player in range(players):
             profiles[player][field_name] = data[player * num : (player + 1) * num]
 
@@ -51,24 +51,37 @@ def generate_board(deck: Dict[str, Any]) -> Dict[str, List[str]]:
     board = {}
 
     for field, num in layout["board"].items():
-        field_name = deck.get(field).get('label', field)
-        board[field_name] = random.sample(deck.get(field)['items'], num)
+        field_name = deck.get(field).get("label", field)
+        board[field_name] = random.sample(deck.get(field)["items"], num)
 
     return board
 
 
 def generate_game(
-    players: int, deck: Dict[str, Any], output: Path, format: str = "html", language: str = 'en'
+    players: int,
+    deck: Dict[str, Any],
+    output: Path,
+    format: str = "html",
+    language: str = "en",
+    game_name: Optional[str] = None,
 ) -> None:
-    game_id = str(uuid.uuid4())[:8]
-    game_path = output / f'game_{game_id}'
 
-    logger.info('Creating game %s at %s', game_id, game_path.absolute())
+    if not output.exists() or not output.is_dir():
+        output.mkdir(parents=True, exist_ok=True)
+
+    if game_name is None:
+        game_id = str(uuid.uuid4())[:8]
+    else:
+        game_id = game_name
+    game_path = output / f"game_{game_id}"
+
+    logger.info("Creating game %s at %s", game_id, game_path.absolute())
     os.mkdir(game_path)
 
     profiles = generate_players(players, deck)
+    board = generate_board(deck)
 
-    profile_template = templates.get_template(f'{language}/profile.html')
-    for pid, player in enumerate(profiles):
-        with open(game_path / f'player_{pid}.html', 'w', encoding='utf-8') as file:
+    profile_template = templates.get_template(f"{language}/profile.html")
+    for pid, player in enumerate(profiles, start=1):
+        with open(game_path / f"player_{pid}.html", "w", encoding="utf-8") as file:
             file.write(profile_template.render(profile=player))

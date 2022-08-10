@@ -31,6 +31,9 @@ def create(
     format: str = Option(
         "html", "--format", "-f", help='Output format (supported "html", "txt").'
     ),
+    name: Optional[str] = Option(
+        None, "--name", "-n", help="Game name (random will generated if not exists)."
+    ),
     ignore: bool = Option(False, "--ignore", help="Ignore deck recommendations."),
 ):
     logger.info("Deck file: %s", deck)
@@ -64,16 +67,13 @@ def create(
                     'Mismatch language ("%s" != "%s")', language, option_language
                 )
         elif language is None and option_language is None:
-            language = 'en'
-            logger.warning('No language selectet. Using \"en\"')
+            language = "en"
+            logger.warning('No language selectet. Using "en"')
         elif language is None:
             language = option_language
 
     generator.generate_game(
-        players=players,
-        deck=deck_obj,
-        output=output_dir,
-        format=format
+        players=players, deck=deck_obj, output=output_dir, format=format, game_name=name
     )
 
 
