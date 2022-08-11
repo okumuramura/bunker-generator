@@ -29,12 +29,20 @@ def create(
     ),
     # TODO for python3.8+ change to Literal['html', 'txt']
     format: str = Option(
-        "html", "--format", "-f", help='Output format (supported "html", "txt").'
+        "html",
+        "--format",
+        "-f",
+        help='Output format (supported "html", "txt").',
     ),
     name: Optional[str] = Option(
-        None, "--name", "-n", help="Game name (random will generated if not exists)."
+        None,
+        "--name",
+        "-n",
+        help="Game name (random will generated if not exists).",
     ),
-    ignore: bool = Option(False, "--ignore", help="Ignore deck recommendations."),
+    ignore: bool = Option(
+        False, "--ignore", help="Ignore deck recommendations."
+    ),
 ):
     logger.info("Deck file: %s", deck)
     if not deck.is_file():
@@ -49,35 +57,41 @@ def create(
     if deck_obj is not None and not ignore:
 
         # PLAYERS COUNT
-        min_players: int = deck_options.get("min_players", 0)
-        max_players: int = deck_options.get("max_players", 100)
+        min_players: int = deck_options.get('min_players', 0)
+        max_players: int = deck_options.get('max_players', 100)
         if not min_players <= players <= max_players:
             logger.warning(
-                "Mismatch in the number of players (%d). Expected >= %d and <= %d.",
+                'Mismatch in the number of players (%d). Expected >= %d and <= %d.',
                 players,
                 min_players,
                 max_players,
             )
 
         # LANGUAGE MATCH
-        option_language: Optional[str] = deck_options.get("language")
+        option_language: Optional[str] = deck_options.get('language')
         if language is not None and option_language is not None:
             if language != option_language:
                 logger.warning(
-                    'Mismatch language ("%s" != "%s")', language, option_language
+                    'Mismatch language ("%s" != "%s")',
+                    language,
+                    option_language,
                 )
         elif language is None and option_language is None:
-            language = "en"
+            language = 'en'
             logger.warning('No language selectet. Using "en"')
         elif language is None:
             language = option_language
 
     generator.generate_game(
-        players=players, deck=deck_obj, output=output_dir, format=format, game_name=name
+        players=players,
+        deck=deck_obj,
+        output=output_dir,
+        format=format,
+        game_name=name,
     )
 
 
-@typer.command(help="Generate separate fields or player's profiles")
+@typer.command(help='Generate separate fields or player\'s profiles')
 def generate(
     professions: int = Option(0),
     bio: int = Option(0),
@@ -99,5 +113,5 @@ def update():
     pass
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     typer()
