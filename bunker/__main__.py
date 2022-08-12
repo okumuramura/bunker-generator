@@ -72,15 +72,23 @@ def create(
         if language is not None and option_language is not None:
             if language != option_language:
                 logger.warning(
-                    'Mismatch language ("%s" != "%s")',
+                    'Mismatch language ("%s" != "%s").',
                     language,
                     option_language,
                 )
         elif language is None and option_language is None:
             language = 'en'
-            logger.warning('No language selectet. Using "en"')
+            logger.warning('No language selectet. Using "en".')
         elif language is None:
             language = option_language
+        
+        # OUTPUT FORMAT
+        if format not in ['html', 'txt']:
+            logger.warning(
+                'Unknown output format: %s. "html" or "txt" requied. html will used.',
+                format
+            )
+            format = 'html'
 
     generator.generate_game(
         players=players,
@@ -91,7 +99,7 @@ def create(
     )
 
 
-@typer.command(help='Generate separate fields or player\'s profiles')
+@typer.command(help='Generate separate fields or player\'s profiles.')
 def generate(
     professions: int = Option(0),
     bio: int = Option(0),

@@ -1,7 +1,6 @@
 import random
 from pathlib import Path
 from typing import Any, Dict, List, Optional
-import os
 import uuid
 
 from bunker import logger, templates
@@ -85,13 +84,15 @@ def generate_game(
     profiles = generate_players(players, deck)
     board = generate_board(deck)
 
-    profile_template = templates.get_template('profile.html')
+    ext = format
+    profile_template = templates.get_template(f'{ext}/profile.{ext}')
+    board_template = templates.get_template(f'{ext}/board.{ext}')
+    
     for pid, player in enumerate(profiles, start=1):
         with open(
-            game_path / f'player_{pid}.html', 'w', encoding='utf-8'
+            game_path / f'player_{pid}.{ext}', 'w', encoding='utf-8'
         ) as file:
-            file.write(profile_template.render(profile=player))
+            file.write(profile_template.render(data=player))
 
-    board_template = templates.get_template('board.html')
-    with open(game_path / 'board.html', 'w', encoding='utf-8') as file:
-        file.write(board_template.render(board=board))
+    with open(game_path / f'board.{ext}', 'w', encoding='utf-8') as file:
+        file.write(board_template.render(data=board))
