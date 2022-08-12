@@ -1,0 +1,5 @@
+Player's profile
+
+{% for field, value in data.items() %}{{ field }}: {% for item in value %}{% if item is mapping %}{{ item.title }}. {{ item.description }}{% else %}{{ item }}{% endif %}
+{% endfor %}
+{% endfor %}
