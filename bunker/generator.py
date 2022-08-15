@@ -1,7 +1,7 @@
 import random
+import uuid
 from pathlib import Path
 from typing import Any, Dict, List, Optional
-import uuid
 
 from bunker import logger, templates
 
@@ -9,7 +9,7 @@ DEFAULT_LAYOUT = {
     'player': {
         'professions': 1,
         'bio': 1,
-        'goods': 2,
+        'goods': 1,
         'health': 1,
         'hobby': 1,
         'facts': 1,
@@ -26,7 +26,7 @@ def generate_players(
     options: Optional[Dict[str, Any]] = deck.get('options')
 
     if options is not None:
-        layout: Dict[str, int] = options.get('layout', DEFAULT_LAYOUT)
+        layout: Dict[str, Dict[str, int]] = options.get('layout', DEFAULT_LAYOUT)
     else:
         layout = DEFAULT_LAYOUT
 
@@ -35,10 +35,13 @@ def generate_players(
     for field, num in layout['player'].items():
         data = random.sample(deck.get(field)['items'], players * num)
         field_name = deck.get(field).get('label', field)
+        field_hide = deck.get(field).get('hide', False)
         for player in range(players):
-            profiles[player][field_name] = data[
-                player * num : (player + 1) * num
-            ]
+            profiles[player][field] = {
+                'itms': data[player * num : (player + 1) * num],
+                'label': field_name,
+                'hide': field_hide
+            }
 
     return profiles
 
@@ -47,7 +50,7 @@ def generate_board(deck: Dict[str, Any]) -> Dict[str, List[str]]:
     options: Optional[Dict[str, Any]] = deck.get('options')
 
     if options is not None:
-        layout: Dict[str, int] = options.get('layout', DEFAULT_LAYOUT)
+        layout: Dict[str, Dict[str, int]] = options.get('layout', DEFAULT_LAYOUT)
     else:
         layout = DEFAULT_LAYOUT
 
@@ -55,7 +58,12 @@ def generate_board(deck: Dict[str, Any]) -> Dict[str, List[str]]:
 
     for field, num in layout['board'].items():
         field_name = deck.get(field).get('label', field)
-        board[field_name] = random.sample(deck.get(field)['items'], num)
+        field_hide = deck.get(field).get('hide', False)
+        board[field] = {
+            'itms': random.sample(deck.get(field)['items'], num),
+            'label': field_name,
+            'hide': field_hide
+        }
 
     return board
 
@@ -87,7 +95,7 @@ def generate_game(
     ext = format
     profile_template = templates.get_template(f'{ext}/profile.{ext}')
     board_template = templates.get_template(f'{ext}/board.{ext}')
-    
+
     for pid, player in enumerate(profiles, start=1):
         with open(
             game_path / f'player_{pid}.{ext}', 'w', encoding='utf-8'

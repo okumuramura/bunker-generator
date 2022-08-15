@@ -6,10 +6,10 @@ from typer import Option, Typer
 
 from bunker import generator, logger
 
-typer = Typer()
+app = Typer()
 
 
-@typer.command(help="Create bunker game with selected options")
+@app.command(help="Create bunker game with selected options")
 def create(
     players: int = Option(..., "--players", "-p", help="Players count."),
     deck: Path = Option(
@@ -81,12 +81,12 @@ def create(
             logger.warning('No language selectet. Using "en".')
         elif language is None:
             language = option_language
-        
+
         # OUTPUT FORMAT
         if format not in ['html', 'txt']:
             logger.warning(
                 'Unknown output format: %s. "html" or "txt" requied. html will used.',
-                format
+                format,
             )
             format = 'html'
 
@@ -99,7 +99,7 @@ def create(
     )
 
 
-@typer.command(help='Generate separate fields or player\'s profiles.')
+@app.command(help='Generate separate fields or player\'s profiles.')
 def generate(
     professions: int = Option(0),
     bio: int = Option(0),
@@ -116,10 +116,10 @@ def generate(
     pass
 
 
-@typer.command()
+@app.command()
 def update():
     pass
 
 
 if __name__ == '__main__':
-    typer()
+    app()

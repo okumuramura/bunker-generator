@@ -1,5 +1,5 @@
 Cards on board
 
-{% for field, value in data.items() %}{{ field }}: {% for item in value %}{% if item is mapping %}{{ item.title }}. {{ item.description }}{% else %}{{ item }}{% endif %}
+{% for field, value in data.items() %}{{ value.label }}: {% for item in value.itms %}{% if item is mapping %}{{ item.title }}. {{ item.description }}{% else %}{{ item }}{% endif %}
 {% endfor %}
 {% endfor %}

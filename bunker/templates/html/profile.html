@@ -12,6 +12,15 @@
             font-weight: bold;
         }
 
+        .spoiler {
+            background: black;
+        }
+
+        .spoiler:hover {
+            background: none;
+            cursor: default;
+        }
+
         .border {
             margin-left: auto;
             margin-right: auto;
@@ -40,14 +49,16 @@
             </tr>
             {% for field, value in data.items() %}
             <tr>
-                <td>{{ field }}</td>
+                <td>{{ value.label }}</td>
                 <td>
-                    {% for item in value %}
+                    {% for item in value.itms %}
                         {% if item is mapping %}
-                            <div>{{ item.title }}</div>
-                            <div>{{ item.description }}</div>
+                            <div class="{% if value.hide %}spoiler{% endif %}">
+                                <div class="highlight">{{ item.title }}</div>
+                                <div>{{ item.description }}</div>
+                            </div>
                         {% else %}
-                            {{ item }}
+                            <div class="{% if value.hide %}spoiler{% endif %}">{{ item }}</div>
                         {% endif %} 
                     {% endfor %}
                 </td>

@@ -483,6 +483,7 @@
   },
   "threats": {
     "label": "Проишествие",
+    "hide": true,
     "items": [
       {
         "title": "Пси-атака",
