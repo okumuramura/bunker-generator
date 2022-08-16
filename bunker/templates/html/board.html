@@ -36,6 +36,10 @@
             vertical-align: top;
         }
 
+        .border td>div {
+            margin-bottom: 5px;
+        }
+
         .border th {
             text-align: center;
             padding-top: 10px;
@@ -58,7 +62,7 @@
                                 <div>{{ item.description }}</div>
                             </div>
                         {% else %}
-                            <div class="{% if value.hide %}spoiler{% endif %}">{{ item }}</div>
+                            <div {% if value.hide %}class="spoiler"{% endif %}>{{ item }}</div>
                         {% endif %} 
                     {% endfor %}
                 </td>

@@ -7,7 +7,7 @@
         "player": {
           "professions": 1,
           "bio": 1,
-          "goods": 2,
+          "goods": 1,
           "health": 1,
           "hobby": 1,
           "facts": 1,
@@ -15,7 +15,7 @@
         },
         "board": {
           "catastrophes": 1,
-          "bunkers": 1,
+          "bunkers": 5,
           "threats": 2
         }
     }
@@ -358,6 +358,7 @@
   },
   "bunkers": {
     "label": "Бункер",
+    "hide": true,
     "items": [
       {
         "title": "R2D2",
