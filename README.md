@@ -1,6 +1,7 @@
 # Bunker
 
 Bunker-like role-play game generator.
+> Disclaimer: this app only generates player's profiles and has no tools for holding a game. For the game you need a leader who will control everything.
 
 
 ## Requirements
@@ -48,3 +49,38 @@ BUNKER-GENERATOR\BUNKER\GAMES
 
 ```
 
+## Customization
+You can flexible customize game files like decks and templates.
+
+### Decks
+Decks files stored in json format at `bunker/decks`. You can use default decks for creating your own.  
+Deck file can contains `options` block that determinate suggested options for that deck (for example players number or language). Also `options` block contains layout block that controls how much cards will at board and player's hands.  
+Options example:
+```json
+"options": {
+    "min_players": 2,
+    "max_players": 16,
+    "language": "en",
+    "layout": {
+        "player": {
+          "professions": 1,
+          "bio": 1,
+          "goods": 1,
+          "health": 1,
+          "hobby": 1,
+          "facts": 1,
+          "specials": 1
+        },
+        "board": {
+          "catastrophes": 1,
+          "bunkers": 5,
+          "threats": 2
+        }
+    }
+```
+You can change that values to make your own deck with your own rules.
+Other blocks are sub-decks with cards. They can have `label` and `hide` field. Cards stored under `items` field.  
+Cards can be two different types - simple and named. Simple cards are strings with text. Named cards contains two fields: `title` and `description`.
+
+### Templates
+Templates created via [Jinja2](https://jinja.palletsprojects.com/en/3.1.x/) syntax. Default templates stored at `bunker/templates`. You can change them or create your own. Use default templates as example.
