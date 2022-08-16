@@ -51,7 +51,7 @@
             <tr>
                 <td>{{ value.label }}</td>
                 <td>
-                    {% for item in value.itms %}
+                    {% for item in value.cards %}
                         {% if item is mapping %}
                             <div {% if value.hide %}class="spoiler"{% endif %}>
                                 <div class="highlight">{{ item.title }}</div>

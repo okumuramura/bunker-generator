@@ -26,7 +26,9 @@ def generate_players(
     options: Optional[Dict[str, Any]] = deck.get('options')
 
     if options is not None:
-        layout: Dict[str, Dict[str, int]] = options.get('layout', DEFAULT_LAYOUT)
+        layout: Dict[str, Dict[str, int]] = options.get(
+            'layout', DEFAULT_LAYOUT
+        )
     else:
         layout = DEFAULT_LAYOUT
 
@@ -38,9 +40,9 @@ def generate_players(
         field_hide = deck.get(field).get('hide', False)
         for player in range(players):
             profiles[player][field] = {
-                'itms': data[player * num : (player + 1) * num],
+                'cards': data[player * num : (player + 1) * num],
                 'label': field_name,
-                'hide': field_hide
+                'hide': field_hide,
             }
 
     return profiles
@@ -50,7 +52,9 @@ def generate_board(deck: Dict[str, Any]) -> Dict[str, List[str]]:
     options: Optional[Dict[str, Any]] = deck.get('options')
 
     if options is not None:
-        layout: Dict[str, Dict[str, int]] = options.get('layout', DEFAULT_LAYOUT)
+        layout: Dict[str, Dict[str, int]] = options.get(
+            'layout', DEFAULT_LAYOUT
+        )
     else:
         layout = DEFAULT_LAYOUT
 
@@ -60,9 +64,9 @@ def generate_board(deck: Dict[str, Any]) -> Dict[str, List[str]]:
         field_name = deck.get(field).get('label', field)
         field_hide = deck.get(field).get('hide', False)
         board[field] = {
-            'itms': random.sample(deck.get(field)['items'], num),
+            'cards': random.sample(deck.get(field)['items'], num),
             'label': field_name,
-            'hide': field_hide
+            'hide': field_hide,
         }
 
     return board
