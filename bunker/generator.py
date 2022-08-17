@@ -15,7 +15,7 @@ DEFAULT_LAYOUT = {
         'facts': 1,
         'specials': 1,
     },
-    'board': {'catastrophes': 1, 'bunkers': 1, 'threats': 2},
+    'board': {'catastrophes': 1, 'bunkers': 5, 'threats': 2},
 }
 
 
