@@ -18,7 +18,7 @@ python -m bunker create [OPTIONS]
 Options:
   -p, --players INTEGER  Players count.  [required]
   -d, --deck PATH        Deck file path.  [default: ./decks/original_ru.json]
-  -o, --output PATH      Output directory where you wnat to create your game.
+  -o, --output PATH      Output directory where you want to create your game.
                          [default: ./games]
   -l, --language TEXT    Output templates language (values depends on deck
                          language).
